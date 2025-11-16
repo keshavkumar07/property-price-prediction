@@ -1,0 +1,142 @@
+:root[data-theme="light"] {
+  --bg: #f7f9fb;
+  --text: #222;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --accent: #ffb703;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f172a;
+  --text: #f8fafc;
+  --card-bg: rgba(30, 41, 59, 0.8);
+  --accent: #facc15;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.4s, color 0.4s;
+}
+
+/* ---------- HERO SECTION FIX ---------- */
+.hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Full-screen background video */
+#bg-video {
+  position: fixed;             /* stays fixed even on scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;           /* fills entire viewport without distortion */
+  z-index: -2;
+}
+
+/* Overlay layer for contrast */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.7)
+  );
+  z-index: -1;
+}
+
+/* Fallback image (optional if video fails to load) */
+.hero-section::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../images/bg.jpg") center/cover no-repeat;
+  z-index: -3;
+}
+
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  z-index: 1000;
+}
+
+.theme-toggle input {
+  display: none;
+}
+
+.theme-toggle label {
+  cursor: pointer;
+  font-size: 30px;
+  transition: transform 0.3s;
+}
+
+.form-card {
+  background: var(--card-bg);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s;
+}
+
+.form-card:hover {
+  transform: scale(1.02);
+}
+
+.btn-warning {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.btn-warning:hover {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+}
+
+.loading-spinner {
+  display: none;
+}
+
+.result-section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.result-box {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 20px;
+  color: var(--text);
+  text-align: center;
+}
+
+
+@keyframes zoomVideo {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+#bg-video {
+  animation: zoomVideo 25s ease-in-out infinite;
+}
