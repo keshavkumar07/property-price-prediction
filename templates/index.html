@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Property Price Predictor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+  <div class="theme-toggle">
+    <input type="checkbox" id="themeSwitch">
+    <label for="themeSwitch" id="themeLabel">🌙</label>
+  </div>
+
+  <section class="hero-section">
+    <video autoplay muted loop playsinline id="bg-video">
+      <source src="{{ url_for('static', filename='videos/bg.mp4') }}" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+
+
+    <div class="container text-center text-light">
+      <h1 class="display-4 fw-bold">AI Property Price Predictor</h1>
+      <p class="lead">Instant valuation powered by machine learning.</p>
+
+      <div class="card form-card shadow-lg mx-auto mt-4">
+        <div class="card-body">
+          <form action="/predict" method="POST" class="row g-3" id="predictForm">
+
+            <div class="col-md-6">
+              <label class="form-label">Area (sq ft)</label>
+              <input type="number" name="area" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Bedrooms</label>
+              <input type="number" name="bedrooms" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Bathrooms</label>
+              <input type="number" name="bathrooms" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Floors</label>
+              <input type="number" name="floors" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Year Built</label>
+              <input type="number" name="year_built" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Location</label>
+              <select name="location" class="form-select" required>
+                <option value="">Select Location</option>
+                {% for loc in locations %}
+                <option>{{ loc }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Condition</label>
+              <select name="condition" class="form-select" required>
+                <option value="">Select Condition</option>
+                {% for c in conditions %}
+                <option>{{ c }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Garage</label>
+              <select name="garage" class="form-select" required>
+                <option value="">Garage</option>
+                {% for g in garages %}
+                <option>{{ g }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col-12 text-center mt-4">
+              <button type="submit" class="btn btn-warning btn-lg px-5 fw-bold">Predict Price</button>
+            </div>
+
+            <div id="loading" class="loading-spinner mt-4" style="display:none;">
+              <div class="spinner-border text-warning" role="status"></div>
+              <p class="mt-2 text-muted">Predicting price...</p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <a href="/dashboard" class="btn btn-outline-light mt-4">📊 View Analytics Dashboard</a>
+      <p class="footer-text mt-5">Built by <b>Keshav</b></p>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
